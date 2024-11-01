@@ -28,6 +28,12 @@ autocmd({"BufWritePre"}, {
         command = [[%s/\s\+$//e]],
 })
 
+autocmd({'TextChanged', 'BufEnter', 'InsertLeave', 'BufWritePre'}, {
+    callback = function()
+        require("lint").try_lint()
+    end,
+})
+
 autocmd('LspAttach', {
         group = BasilGroup,
         callback = function(e)
